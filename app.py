@@ -56,7 +56,9 @@ if st.button("Predict Churn"):
     balance_salary_ratio = balance / (salary + 1)
     tenure_by_age = tenure / (age + 1)
     credit_score_age_ratio = credit_score / (age + 1)
-    products_per_tenure = num_products / (tenure + 1)
+    balance_per_product = balance / (num_products + 1)
+    products_per_age = num_products / (age + 1)
+    is_senior = int(age > 50)
 
     # Build dataframe
     input_df = pd.DataFrame([{
@@ -73,7 +75,10 @@ if st.button("Predict Churn"):
         "BalanceSalaryRatio": balance_salary_ratio,
         "TenureByAge": tenure_by_age,
         "CreditScoreAgeRatio": credit_score_age_ratio,
-        "ProductsPerTenure": products_per_tenure
+        "BalancePerProduct": balance_per_product,
+        "ProductsPerAge": products_per_age,
+        "IsSenior": is_senior
+
     }])
 
     # -----------------------------
@@ -101,7 +106,9 @@ if st.button("Predict Churn"):
         "BalanceSalaryRatio",
         "TenureByAge",
         "CreditScoreAgeRatio",
-        "ProductsPerTenure"
+        "BalancePerProduct",
+        "ProductsPerAge",
+        "IsSenior"
     ]
 
     input_df = input_df[feature_order]
