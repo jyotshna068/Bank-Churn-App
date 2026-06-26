@@ -4,3 +4,4 @@ numpy
 catboost
 scikit-learn
 matplotlib
+shap
