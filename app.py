@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import shap
+import matplotlib.pyplot as plt
 from catboost import CatBoostClassifier
 
 # -----------------------------
@@ -7,6 +9,11 @@ from catboost import CatBoostClassifier
 # -----------------------------
 model = CatBoostClassifier()
 model.load_model("bank_churn_model.cbm")
+
+# -----------------------------
+# Create SHAP explainer
+# -----------------------------
+explainer = shap.TreeExplainer(model)
 
 # -----------------------------
 # Page config
@@ -78,7 +85,6 @@ if st.button("Predict Churn"):
         "BalancePerProduct": balance_per_product,
         "ProductsPerAge": products_per_age,
         "IsSenior": is_senior
-
     }])
 
     # -----------------------------
@@ -118,6 +124,10 @@ if st.button("Predict Churn"):
     # -----------------------------
     churn_prob = model.predict_proba(input_df)[0][1]
 
+    # Generate SHAP values
+
+    shap_values = explainer(input_df)
+
     # -----------------------------
     # Output
     # -----------------------------
@@ -140,6 +150,55 @@ if st.button("Predict Churn"):
     else:
         st.success("🟢 Low Risk Customer")
         st.write("Recommended Action: Standard Engagement")
+
+    # show feature contributions
+    
+    st.subheader("📊 Why this prediction?")
+
+    feature_importance = pd.DataFrame({
+    "Feature": input_df.columns,
+    "SHAP Value": shap_values.values[0]
+})  
+    feature_importance["Impact"] = feature_importance["SHAP Value"].abs()
+
+    feature_importance = feature_importance.sort_values(
+     by="Impact",
+     ascending=False
+    )
+
+    st.dataframe(feature_importance)
+
+   # SHAP waterfall plot
+
+    st.subheader("📈 SHAP Waterfall Plot")
+
+    plt.figure(figsize=(10,6))
+
+    shap.plots.waterfall(
+     shap_values[0],
+     max_display=10,
+     show=False
+    )
+
+    st.pyplot(plt.gcf())
+    plt.close()
+   
+    # natural language explanation
+
+    st.subheader("🤖 AI Explanation")
+
+    top3 = feature_importance.head(3)
+
+    for _, row in top3.iterrows():
+
+      if row["SHAP Value"] > 0:
+        st.write(
+            f"🔺 **{row['Feature']}** increased the customer's churn risk."
+        )
+      else:
+        st.write(
+            f"🔻 **{row['Feature']}** decreased the customer's churn risk."
+        )
 
     st.subheader("Customer Input Data")
     st.dataframe(input_df)
