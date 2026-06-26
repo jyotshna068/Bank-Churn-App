@@ -100,7 +100,7 @@ Model Configuration:
 
 | Metric        | Score     |
 | ------------- | --------- |
-| Accuracy      | **81.4%** |
+| Accuracy      | **85%** |
 | ROC-AUC Score | **86.9%** |
 
 Additional Evaluation:
