@@ -1,10 +1,20 @@
-# 🏦 Bank Customer Churn Prediction using CatBoost & Streamlit
+# 🏦 Bank Customer Churn Prediction
 
-## 📌 Overview
+An end-to-end Machine Learning Web Application that predicts whether a bank customer is likely to churn using a CatBoost Classifier. The application is built with Streamlit and includes SHAP Explainable AI to interpret model predictions.
 
-This project is an end-to-end Machine Learning application that predicts whether a bank customer is likely to churn (leave the bank) based on customer demographics, account information, and banking behavior.
+---
 
-The model is trained using **CatBoost Classifier** with advanced feature engineering and is deployed as an interactive **Streamlit** web application. The application not only predicts churn probability but also categorizes customer risk, recommends retention strategies, and provides explainable AI insights using **SHAP (SHapley Additive Explanations)**.
+## 📌 Project Overview
+
+Customer churn is one of the major challenges faced by banks. This project helps identify customers who are likely to leave the bank so that appropriate retention strategies can be implemented.
+
+The application allows users to:
+
+Enter customer details
+Predict churn probability
+View customer risk level
+Receive retention recommendations
+Understand prediction explanations using SHAP
 
 ---
 
@@ -35,6 +45,17 @@ The model is trained using **CatBoost Classifier** with advanced feature enginee
 * SHAP
 * Matplotlib
 * Streamlit
+
+---
+
+## 📂 Project Structure
+Bank-Churn-App/
+│
+├── app.py                    # Streamlit application
+├── bank_churn_model.cbm      # Trained CatBoost model
+├── requirements.txt          # Project dependencies
+├── README.md                 # Documentation
+└── churn_prediction.ipynb    # Model training notebook
 
 ---
 
@@ -103,13 +124,6 @@ Model Configuration:
 | Accuracy      | **85%** |
 | ROC-AUC Score | **86.9%** |
 
-Additional Evaluation:
-
-* Classification Report
-* Confusion Matrix
-* Feature Importance Analysis
-* SHAP Explainability
-
 ---
 
 ## 📈 Explainable AI
@@ -126,27 +140,114 @@ This improves model transparency and helps understand why a customer is predicte
 
 ---
 
-## 💻 Streamlit Application
+## ⚙️ Installation & Setup
 
-The web application allows users to:
+### 1. Clone the Repository
 
-* Enter customer details
-* Predict churn probability
-* View customer risk level
-* Receive retention recommendations
-* Analyze feature contributions using SHAP
-* Review customer input summary
+```bash
+git clone https://github.com/jyotshna068/Bank-Churn-App.git
+```
+
+### 2. Navigate to the Project Folder
+
+```bash
+cd Bank-Churn-App
+```
+
+### 3. Create a Virtual Environment (Recommended)
+
+**Windows**
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
 ---
 
-## 📁 Project Structure
+### 4. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 5. Run the Streamlit Application
+
+```bash
+streamlit run app.py
+```
+
+The application will be available at:
 
 ```
-Bank-Churn-App/
-│
-├── app.py
-├── bank_churn_model.cbm
-├── requirements.txt
-├── README.md
-└── churn_prediction.ipynb
+http://localhost:8501
+```
+
+---
+
+## 📋 Input Features
+
+* Credit Score
+* Geography
+* Gender
+* Age
+* Tenure
+* Balance
+* Number of Products
+* Has Credit Card
+* Is Active Member
+* Estimated Salary
+
+---
+
+## 📤 Output
+
+The application provides:
+
+* Customer Churn Probability
+* Risk Category
+* Recommended Retention Strategy
+* SHAP-based Feature Explanation
+* Customer Input Summary
+
+---
+
+## 📈 Explainable AI
+
+The application integrates **SHAP (SHapley Additive Explanations)** to interpret the model's predictions by identifying the features that contribute most to the predicted churn probability.
+
+---
+
+## 🎯 Future Improvements
+
+* FastAPI REST API
+* Customer Authentication
+* Database Integration
+* Prediction History
+* Downloadable Prediction Reports
+* Email Notifications
+* Docker Deployment
+* Cloud Deployment (AWS/Azure/GCP)
+
+---
+
+## 👩‍💻 Author
+
+**Jyotshna Devi Gavireddy**
+
+GitHub: https://github.com/jyotshna068
+
+---
+
+## ⭐ If you found this project useful, please consider giving it a star!
+
 ```
